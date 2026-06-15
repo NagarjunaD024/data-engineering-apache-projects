@@ -57,7 +57,7 @@ The repository is structured to optimize your learning experience, with separate
 .
 ├── Implementing the Data Lakehouse (Chapter 02)
 ├── ETL Pipeline with Apache Spark (chapter-03)
-├── chapter-04
+├── Data Visualization with Apache Superset (Chapter - 04)
 ├── chapter-05
 ├── chapter-06
 ├── chapter-07
