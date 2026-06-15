@@ -124,6 +124,7 @@ services:
       - ADMIN_LAST_NAME=Admin
       - ADMIN_EMAIL=admin@example.com
       - DATABASE_URL=postgresql+psycopg2://superset:superset@superset-db:5432/superset
+      - SUPERSET_CONFIG_PATH=/app/superset_home/superset_config.py
     depends_on:
       - superset-db
     ports:

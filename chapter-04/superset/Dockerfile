@@ -2,7 +2,9 @@ FROM apache/superset:latest
 
 USER root
 
-# Install Trino SQLAlchemy driver and all dependencies
-RUN pip install trino[sqlalchemy] 
+RUN curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py && \
+    /app/.venv/bin/python get-pip.py && \
+    /app/.venv/bin/python -m pip install trino[sqlalchemy] psycopg2-binary && \
+    rm get-pip.py
 
 USER superset
