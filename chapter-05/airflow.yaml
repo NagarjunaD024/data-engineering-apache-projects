@@ -3,6 +3,7 @@ x-airflow-common:
   build:
     context: ./airflow 
   environment:
+    # AIRFLOW__WEBSERVER__BASE_URL: "https://fantastic-umbrella-q6q5w799w7ph9w5q-8080.app.github.dev"
     AIRFLOW__CORE__EXECUTOR: LocalExecutor
     AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@airflow-db/airflow
     AIRFLOW__WEBSERVER__SECRET_KEY: "7Kdl0pEf4Rvu14oVxRAZf3FVu1tE5bVpsbpYv7dGspM"
