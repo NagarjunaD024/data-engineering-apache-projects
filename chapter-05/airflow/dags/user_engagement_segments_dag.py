@@ -85,7 +85,7 @@ with DAG(
     
     notify_success = EmailOperator(
         task_id='notify_success',
-        to='marketing-team@example.com',
+        to='nandu143.gottipati@gmail.com',
         subject='[Airflow] User Engagement Segments Exported',
         html_content="""
             <p>Hello Team,</p>
