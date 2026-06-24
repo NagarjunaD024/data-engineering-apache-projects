@@ -60,7 +60,7 @@ The repository is structured to optimize your learning experience, with separate
 ├── Data Visualization with Apache Superset (Chapter - 04)
 ├── ETL Orchestration with Apache Airflow (Chapter-05)
 ├── Real-time Change Data Capture with Kafka and Debezium (Chapter - 06)
-├── chapter-07
+├── Low-Latency Real-time Analytics Dashboard with ClickHouse (Cchapter-07)
 ├── chapter-08
 ├── chapter-09
 ├── chapter-10
