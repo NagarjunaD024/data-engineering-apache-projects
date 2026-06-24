@@ -59,7 +59,7 @@ The repository is structured to optimize your learning experience, with separate
 ├── ETL Pipeline with Apache Spark (chapter-03)
 ├── Data Visualization with Apache Superset (Chapter - 04)
 ├── ETL Orchestration with Apache Airflow (Chapter-05)
-├── chapter-06
+├── Real-time Change Data Capture with Kafka and Debezium (Chapter - 06)
 ├── chapter-07
 ├── chapter-08
 ├── chapter-09
