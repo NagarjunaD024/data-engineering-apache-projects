@@ -10,13 +10,13 @@ producer = KafkaProducer(
 )
 
 devices = ['iPhone 15', 'Samsung Galaxy', 'MacBook Pro', 'Windows Laptop']
-ips = ['192.168.1.100', '203.0.113.22', '10.0.0.99']
+ips = ['192.168.1.100', '203.0.113.22', '10.0.0.99', '145.7.0.50']
 platforms = ['ios', 'android', 'web']
 
 while True:
     event = {
         "user_id": f"user_{random.randint(1,5)}",
-        "timestamp": datetime.utcnow().isoformat() + "Z",
+        "timestamp": datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S.%f")[:-3],
         "ip": random.choice(ips),
         "device": random.choice(devices),
         "platform": random.choice(platforms),
