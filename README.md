@@ -62,7 +62,7 @@ The repository is structured to optimize your learning experience, with separate
 ├── Real-time Change Data Capture with Kafka and Debezium (Chapter - 06)
 ├── Low-Latency Real-time Analytics Dashboard with ClickHouse (chapter-07)
 ├── Streaming ETL and Anomaly Detection with Apache Flink (chapter-08)
-├── chapter-09
+├── Building a Product Recommendation Engine with Spark MLlib (chapter-09)
 ├── chapter-10
 ```
 
