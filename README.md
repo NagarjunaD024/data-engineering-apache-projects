@@ -63,7 +63,7 @@ The repository is structured to optimize your learning experience, with separate
 ├── Low-Latency Real-time Analytics Dashboard with ClickHouse (chapter-07)
 ├── Streaming ETL and Anomaly Detection with Apache Flink (chapter-08)
 ├── Building a Product Recommendation Engine with Spark MLlib (chapter-09)
-├── chapter-10
+├── Vector Similarity Search with Postgres and pgvector (chapter-10)
 ```
 
 To make your learning experience smoother, we've pre-implemented the difficult or boilerplate parts of each project, allowing you to focus on building the core data engineering components while following along with each chapter. This approach saves you valuable time by letting you concentrate on the concepts that matter most. Additionally, each project comes with clear instructions on how to get started and which components you need to implement.
