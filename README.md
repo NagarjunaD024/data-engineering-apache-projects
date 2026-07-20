@@ -1,81 +1,121 @@
-# Practical-Data-Engineering-with-Apache-Projects
-This repository contains the source code for the book "Practical Data Engineering with Apache Projects". 
+# Data Engineering with Apache Projects — Hands-On Implementations
 
-This book is organized into three distinct parts, each focusing on different aspects of modern data engineering:
+![Spark](https://img.shields.io/badge/Apache%20Spark-E25A1C?logo=apachespark&logoColor=white)
+![Iceberg](https://img.shields.io/badge/Apache%20Iceberg-1B98E0?logo=apacheiceberg&logoColor=white)
+![Kafka](https://img.shields.io/badge/Apache%20Kafka-231F20?logo=apachekafka&logoColor=white)
+![Flink](https://img.shields.io/badge/Apache%20Flink-E6526F?logo=apacheflink&logoColor=white)
+![Airflow](https://img.shields.io/badge/Apache%20Airflow-017CEE?logo=apacheairflow&logoColor=white)
+![Trino](https://img.shields.io/badge/Trino-DD00A1?logo=trino&logoColor=white)
+![ClickHouse](https://img.shields.io/badge/ClickHouse-FFCC01?logo=clickhouse&logoColor=black)
+![Postgres](https://img.shields.io/badge/PostgreSQL-4169E1?logo=postgresql&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white)
 
-## Part 1: Foundational Data Engineering
-The first part of the book covers essential data engineering concepts and tools, including data storage in lakehouses, ETL pipelines, data visualization, and pipeline automation. 
+A collection of **10 end-to-end data engineering projects** I built to work through the full modern open-source stack from lakehouse storage and batch ETL, through real-time streaming and CDC, to ML feature engineering and vector search.
 
-- **Chapter 02** - You will set up an Apache Iceberg data lakehouse infrastructure from the ground up. This lakehouse provides a strong foundation for the OneShop data engineering team. You will see how they build several projects based on this infrastructure.
-- **Chapter 03** - You will model the Iceberg lakehouse (set up in Chapter 02) with Medallion architecture. You'll develop batch ETL pipelines with Apache Spark to load data into the bronze layer and transform this data for the silver layer.
-- **Chapter 04** - You will define gold layer tables in the lakehouse using Trino. Then, you will use Apache Superset to create business intelligence dashboards from these gold tables.
-- **Chapter 05** - You will use Apache Airflow to orchestrate an ETL pipeline that computes customer segments based on silver tables in the lakehouse, exports the results to MinIO as a CSV file, and sends an email reminder.
+Every project runs locally as a self-contained Docker Compose environment, so each pipeline is reproducible end to end: spin it up, load data, run, and tear it down resources.
 
-## Part 2: Streaming and Real-Time Analytics
-The second part focuses on handling real-time data and stream processing with Apache Kafka ecosystem. You'll explore: 
+---
 
-- **Chapter 06** - You will implement a change data capture (CDC) pipeline with Debezium to capture inventory level changes from Postgres and reliably update a search index in OpenSearch.
-- **Chapter 07** - You will develop a real-time analytics dashboard with Apache Kafka, Clickhouse, and Streamlit to visualize OneShop's flash sale campaigns in real-time.
-- **Chapter 08** - You will use Kafka and Apache Flink to build a user login anomaly detection system.
+## Why I built this
 
-## Part 3: Data Engineering for AI and ML
-The final part demonstrates how data engineering enables modern AI and machine learning applications. Projects include:
+Most data engineering tutorials stop at "here's the syntax." I wanted to understand the **primitives** — how ingestion, storage, transformation, and serving actually fit together — because those primitives are what the managed cloud platforms are built on top of.
 
-- **Chapter 09** - You will build a product recommendation engine for OneShop. We will use Spark MLlib library to create a machine learning feature engineering pipeline based on the data available in the silver layer tables, computing the features required for the recommender model, and storing the refined features in a gold layer table.
-- **Chapter 10** - As the final project, you will implement a semantic similarity search engine to analyze customer reviews left by OneShop customers. You will use the pgvector extension on Postgres for this.
+Working on these projects alongside going deep on **Snowflake** (storage integrations, Snowpipe, dynamic tables), something clicked: the modern cloud warehouses (Snowflake, Databricks) are essentially productized versions of these same open-source ideas. Snowpipe is event-driven ingestion. Dynamic tables are materialized transformations. A lakehouse table format like Iceberg is what powers the "table" abstraction underneath.
 
-Each part builds upon the previous sections, providing you with a comprehensive understanding of modern data engineering practices and tools. The hands-on projects will give you practical experience in implementing real-world solutions using industry-standard Apache technologies.
+Learning the open-source building blocks first makes the managed platforms feel intuitive rather than magical — and that's the foundation I try to build everything on.
 
-## Prerequisites
+---
 
-Before diving into the practical projects in this book, there are a few prerequisites you should have in place to ensure a smooth learning experience:
+## The Projects
 
-### Docker Environment
+### Part 1 - Lakehouse, Batch ETL & Orchestration
 
-Almost all the projects you will explore in this book are available as Docker Compose projects. This approach offers several benefits:
+**1. [Implementing the Data Lakehouse](./Implementing%20the%20Data%20Lakehouse%20(Chapter%2002))**
+Built an **Apache Iceberg** lakehouse from the ground up. Created databases and Iceberg tables, wrote and queried records via PyIceberg and the PyIceberg CLI, and established the storage foundation that every later project builds on.
 
-- **Self-contained environments:** Each project runs in isolated containers, preventing conflicts between different technology stacks.
-- **Easy reproducibility:** You can quickly spin up complex multi-service architectures with a single command.
-- **Consistent experience:** The containerized setup ensures that the projects work the same way across different operating systems and environments.
-- **Simplified cleanup:** When you're done with a project, you can remove all associated resources without affecting your local system.
+**2. [ETL Pipeline with Apache Spark](./ETL%20Pipeline%20with%20Apache%20Spark%20(chapter-03))**
+Modeled the lakehouse using a **Medallion architecture** (bronze → silver → gold). Implemented batch **PySpark** ETL to load raw data into the bronze layer from Postgres and MinIO, then cleaned, denormalized, and enriched it into validated silver tables.
 
-To run these projects, you will need to have the following installed on your local machine:
+**3. [Data Visualization with Apache Superset](./Data%20Visualization%20with%20Apache%20Superset%20(Chapter%20-%2004))**
+Defined **gold-layer** business tables using **Trino** as a distributed query engine over the lakehouse, then built BI dashboards in **Apache Superset** to surface KPIs.
 
-- **Docker Engine** (version 20.10 or higher)
-- **Docker Compose** (version 2.0 or higher)
+**4. [ETL Orchestration with Apache Airflow](./ETL%20Orchestration%20with%20Apache%20Airflow%20(Chapter-05))**
+Built an **Airflow** DAG that computes customer segments from the silver tables, exports the results to **MinIO** as CSV, and sends a completion notification including configuring TLS/HTTPS and the Trino connection for the orchestration layer.
 
-For the resource requirements, we recommend:
+### Part 2 - Streaming & Real-Time Analytics
 
-- **CPU:** At least 4 cores (8 cores recommended for smoother performance)
-- **Memory:** Minimum 8GB RAM (16GB or more recommended, especially for projects involving Apache Spark)
-- **Storage:** At least 20GB of free disk space
+**5. [Real-time Change Data Capture with Kafka & Debezium](./Real-time%20Change%20Data%20Capture%20with%20Kafka%20and%20Debezium%20(Chapter%20-%2006))**
+Implemented a **CDC** pipeline that captures inventory changes from **Postgres** using **Debezium**, streams them through **Kafka**, transforms the change events, and reliably keeps an **OpenSearch** index in sync.
 
+**6. [Low-Latency Real-time Analytics Dashboard with ClickHouse](./Low-Latency%20Real-time%20Analytics%20Dashboard%20with%20ClickHouse%20(chapter-07))**
+Built a real-time flash-sale analytics pipeline: a change feed streamed through **Kafka** into **ClickHouse** for low-latency aggregation, visualized live in a **Streamlit** dashboard.
 
-The repository is structured to optimize your learning experience, with separate folders organized by chapter. 
+**7. [Streaming ETL & Anomaly Detection with Apache Flink](./Streaming%20ETL%20and%20Anomaly%20Detection%20with%20Apache%20Flink%20(chapter-08))**
+Built a stateful stream-processing job with **Kafka + Apache Flink** (Flink SQL) to detect user-login anomalies in real time as events flow through the system.
 
+### Part 3 - Data Engineering for AI & ML
+
+**8. [Product Recommendation Engine with Spark MLlib](./Building%20a%20Product%20Recommendation%20Engine%20with%20Spark%20MLlib%20(chapter-09))**
+Built a feature-engineering pipeline on the silver-layer data and trained an **ALS** collaborative-filtering model with **Spark MLlib**, storing the refined features in the gold layer and serving recommendations via a Flask endpoint.
+
+**9. [Vector Similarity Search with Postgres & pgvector](./Vector%20Similarity%20Search%20with%20Postgres%20and%20pgvector%20(Ch%20-10))**
+Implemented a **semantic similarity search** engine over customer reviews: generated vector embeddings and ran similarity queries using the **pgvector** extension on Postgres.
+
+---
+
+## Tech Stack
+
+| Layer | Technologies |
+|---|---|
+| **Storage / Lakehouse** | Apache Iceberg, MinIO (S3), PostgreSQL |
+| **Batch Processing** | Apache Spark / PySpark |
+| **Query & Serving** | Trino, Apache Superset, Streamlit, Flask |
+| **Streaming & Messaging** | Apache Kafka, Kafka Connect, Debezium |
+| **Stream Processing** | Apache Flink (Flink SQL), ClickHouse |
+| **Orchestration** | Apache Airflow |
+| **ML / AI** | Spark MLlib (ALS), pgvector, OpenSearch |
+| **Infra & Languages** | Docker Compose, Python, Java, SQL, YAML |
+
+---
+
+## Running the Projects
+
+Every project is a self-contained **Docker Compose** stack — isolated, reproducible, and easy to tear down.
+
+**Prerequisites**
+- Docker Engine `20.10+`
+- Docker Compose `2.0+`
+- Recommended: 4+ CPU cores (8 for Spark-heavy projects), 8 GB+ RAM (16 GB recommended), 20 GB free disk
+
+**Getting started**
 ```bash
-.
-├── Implementing the Data Lakehouse (Chapter 02)
-├── ETL Pipeline with Apache Spark (chapter-03)
-├── Data Visualization with Apache Superset (Chapter - 04)
-├── ETL Orchestration with Apache Airflow (Chapter-05)
-├── Real-time Change Data Capture with Kafka and Debezium (Chapter - 06)
-├── Low-Latency Real-time Analytics Dashboard with ClickHouse (chapter-07)
-├── Streaming ETL and Anomaly Detection with Apache Flink (chapter-08)
-├── Building a Product Recommendation Engine with Spark MLlib (chapter-09)
-├── Vector Similarity Search with Postgres and pgvector (chapter-10)
+# Clone the repo
+git clone https://github.com/NagarjunaD024/data-engineering-apache-projects.git
+cd data-engineering-apache-projects
+
+# Enter any project folder and bring up its stack
+cd "Implementing the Data Lakehouse (Chapter 02)"
+docker compose up -d
 ```
 
-To make your learning experience smoother, we've pre-implemented the difficult or boilerplate parts of each project, allowing you to focus on building the core data engineering components while following along with each chapter. This approach saves you valuable time by letting you concentrate on the concepts that matter most. Additionally, each project comes with clear instructions on how to get started and which components you need to implement.
+Each project folder contains its own setup notes and the specific components to run.
 
-### Programming Knowledge
+**Familiarity assumed:** Python & PySpark, basic Java (for the Kafka/Flink pieces), SQL, and YAML for the Compose configs.
 
-To get the most out of this book, you should have familiarity with the following technologies and languages:
+---
 
-- **Python:** Most examples use Python for data processing, transformation, and pipeline development.
-- **PySpark:** Basic knowledge of PySpark APIs will be helpful for working with large-scale data processing.
-- **Java:** Some components, particularly those related to Apache Kafka and Flink, use Java.
-- **YAML:** Configuration files for Docker Compose and various services are written in YAML.
-- **SQL:** You should be comfortable with basic to intermediate SQL queries for data analysis and transformation.
+## About Me
 
-If you need to brush up on any of these skills, we recommend spending some time refreshing your knowledge before diving into the more complex projects. There are many online resources available for quick reviews of these technologies.
+I'm a data engineer focused on the *why* behind the stack not just how to click through a managed console, but understanding the primitives well enough to reason about trade-offs across ingestion, storage, transformation, and serving.
+
+I'm currently **open to Data Engineer / Analytics Engineer roles**. If you're hiring or open to a conversation, I'd love to connect.
+
+- **GitHub:** [NagarjunaD024](https://github.com/NagarjunaD024)
+- **LinkedIn:** [Linkedin](https://www.linkedin.com/in/nagarjuna-gottipati-841995128/)
+
+---
+
+## Acknowledgment
+
+The projects in this repository are based on the exercises from the book *Practical Data Engineering with Apache Projects Dunith Danushka*. The book provides boilerplate scaffolding for each project; my work focused on implementing the core data engineering components the pipelines, transformations, models, and integrations described above.
