@@ -19,11 +19,11 @@ Every project runs locally as a self-contained Docker Compose environment, so ea
 
 ## Why I built this
 
-Most data engineering tutorials stop at "here's the syntax." I wanted to understand the **primitives** — how ingestion, storage, transformation, and serving actually fit together — because those primitives are what the managed cloud platforms are built on top of.
+Most data engineering tutorials stop at "here's the syntax." I wanted to understand the **primitives**  how ingestion, storage, transformation, and serving actually fit together because those primitives are what the managed cloud platforms are built on top of.
 
 Working on these projects alongside going deep on **Snowflake** (storage integrations, Snowpipe, dynamic tables), something clicked: the modern cloud warehouses (Snowflake, Databricks) are essentially productized versions of these same open-source ideas. Snowpipe is event-driven ingestion. Dynamic tables are materialized transformations. A lakehouse table format like Iceberg is what powers the "table" abstraction underneath.
 
-Learning the open-source building blocks first makes the managed platforms feel intuitive rather than magical — and that's the foundation I try to build everything on.
+Learning the open-source building blocks first makes the managed platforms feel intuitive rather than magical and that's the foundation I try to build everything on.
 
 ---
 
