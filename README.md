@@ -1,4 +1,4 @@
-# Data Engineering with Apache Projects — Hands-On Implementations
+# Data Engineering with Apache Projects Hands-On Implementations
 
 ![Spark](https://img.shields.io/badge/Apache%20Spark-E25A1C?logo=apachespark&logoColor=white)
 ![Iceberg](https://img.shields.io/badge/Apache%20Iceberg-1B98E0?logo=apacheiceberg&logoColor=white)
